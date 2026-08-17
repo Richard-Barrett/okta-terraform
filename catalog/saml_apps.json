@@ -1,0 +1,30 @@
+{
+  "applications": {
+    "example-saml-app": {
+      "label": "Example SAML Application",
+      "sso_url": "https://example.com/saml/acs",
+      "audience": "https://example.com/saml/metadata",
+      "recipient": "https://example.com/saml/acs",
+      "destination": "https://example.com/saml/acs",
+      "subject_name_id_template": "${user.email}",
+      "subject_name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+      "status": "INACTIVE",
+      "response_signed": true,
+      "assertion_signed": true,
+      "signature_algorithm": "RSA_SHA256",
+      "digest_algorithm": "SHA256",
+      "honor_force_authn": false,
+      "owner": "identity-platform",
+      "requested_by": "example.user",
+      "environment": "dev",
+      "sal": "SAL2",
+      "attribute_statements": [
+        {
+          "name": "email",
+          "type": "EXPRESSION",
+          "values": ["user.email"]
+        }
+      ]
+    }
+  }
+}

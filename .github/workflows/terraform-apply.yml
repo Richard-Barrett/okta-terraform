@@ -1,0 +1,28 @@
+name: Terraform Apply
+
+# Deliberately manual until a durable remote backend is configured.
+# Once remote state and environment protections are in place, this can be changed
+# to run on pushes/merges to main.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apply:
+    environment: okta-production
+    runs-on: ubuntu-latest
+    env:
+      TF_IN_AUTOMATION: 'true'
+      TF_VAR_okta_org_name: ${{ secrets.OKTA_ORG_NAME }}
+      TF_VAR_okta_base_url: ${{ secrets.OKTA_BASE_URL }}
+      TF_VAR_okta_client_id: ${{ secrets.OKTA_CLIENT_ID }}
+      TF_VAR_okta_private_key: ${{ secrets.OKTA_PRIVATE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.0'
+      - run: terraform init -input=false
+      - run: terraform apply -input=false -auto-approve

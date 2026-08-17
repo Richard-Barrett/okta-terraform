@@ -1,0 +1,13 @@
+# Configure a durable remote backend before enabling unattended CI applies.
+# Example using Terraform Cloud/HCP Terraform:
+#
+# terraform {
+#   cloud {
+#     organization = "YOUR_ORGANIZATION"
+#     workspaces {
+#       name = "gmf-okta"
+#     }
+#   }
+# }
+#
+# Keep this file as an example until you select the enterprise state backend.

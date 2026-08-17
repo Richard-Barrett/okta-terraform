@@ -1,0 +1,35 @@
+name: Terraform PR
+
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+      - 'catalog/**'
+      - 'modules/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-plan:
+    runs-on: ubuntu-latest
+    env:
+      TF_IN_AUTOMATION: 'true'
+      TF_VAR_okta_org_name: ${{ secrets.OKTA_ORG_NAME }}
+      TF_VAR_okta_base_url: ${{ secrets.OKTA_BASE_URL }}
+      TF_VAR_okta_client_id: ${{ secrets.OKTA_CLIENT_ID }}
+      TF_VAR_okta_private_key: ${{ secrets.OKTA_PRIVATE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install jsonschema
+      - run: python scripts/validate_catalog.py
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.13.0'
+      - run: terraform fmt -check -recursive
+      - run: terraform init -input=false
+      - run: terraform validate
+      - run: terraform plan -input=false -no-color

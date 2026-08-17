@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Okta SAML Application Catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["applications"],
+  "properties": {
+    "applications": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "sso_url", "audience", "owner", "requested_by", "environment"],
+        "properties": {
+          "label": {"type": "string", "minLength": 2},
+          "sso_url": {"type": "string", "format": "uri"},
+          "audience": {"type": "string", "minLength": 1},
+          "recipient": {"type": ["string", "null"], "format": "uri"},
+          "destination": {"type": ["string", "null"], "format": "uri"},
+          "subject_name_id_template": {"type": "string"},
+          "subject_name_id_format": {"type": "string"},
+          "status": {"enum": ["ACTIVE", "INACTIVE"]},
+          "response_signed": {"type": "boolean"},
+          "assertion_signed": {"type": "boolean"},
+          "signature_algorithm": {"enum": ["RSA_SHA256", "RSA_SHA1"]},
+          "digest_algorithm": {"enum": ["SHA256", "SHA1"]},
+          "honor_force_authn": {"type": "boolean"},
+          "owner": {"type": "string", "minLength": 2},
+          "requested_by": {"type": "string", "minLength": 2},
+          "environment": {"enum": ["dev", "test", "stage", "prod"]},
+          "sal": {"enum": ["SAL1", "SAL2", "SAL3", "SAL4", null]},
+          "attribute_statements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "type"],
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "type": {"enum": ["EXPRESSION", "GROUP"]},
+                "values": {"type": "array", "items": {"type": "string"}},
+                "filter_type": {"enum": ["STARTS_WITH", "EQUALS", "CONTAINS", "REGEX", null]},
+                "filter_value": {"type": ["string", "null"]}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
