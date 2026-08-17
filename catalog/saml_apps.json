@@ -22,9 +22,41 @@
         {
           "name": "email",
           "type": "EXPRESSION",
-          "values": ["user.email"]
+          "values": [
+            "user.email"
+          ]
         }
       ]
+    },
+    "fastapi-test-app": {
+      "label": "FastAPI Test SAML Application",
+      "sso_url": "https://fastapi-test.example.com/saml/acs",
+      "audience": "https://fastapi-test.example.com/saml/metadata",
+      "recipient": "https://fastapi-test.example.com/saml/acs",
+      "destination": "https://fastapi-test.example.com/saml/acs",
+      "subject_name_id_template": "${user.email}",
+      "subject_name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+      "status": "INACTIVE",
+      "response_signed": true,
+      "assertion_signed": true,
+      "signature_algorithm": "RSA_SHA256",
+      "digest_algorithm": "SHA256",
+      "honor_force_authn": false,
+      "attribute_statements": [
+        {
+          "name": "email",
+          "type": "EXPRESSION",
+          "values": [
+            "user.email"
+          ],
+          "filter_type": null,
+          "filter_value": null
+        }
+      ],
+      "owner": "identity-platform",
+      "requested_by": "richard.barrett",
+      "environment": "dev",
+      "sal": "SAL2"
     }
   }
 }
