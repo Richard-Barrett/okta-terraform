@@ -20,3 +20,9 @@ variable "okta_private_key" {
   type        = string
   sensitive   = true
 }
+
+variable "okta_private_key_id" {
+  description = "Key ID (kid) of the Okta API Services application's public key"
+  type        = string
+  sensitive   = true
+}
