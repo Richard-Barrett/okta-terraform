@@ -58,6 +58,63 @@
       "environment": "dev",
       "sal": "SAL2"
     },
+    "finance-reporting-dev": {
+      "label": "Finance Reporting Development",
+      "sso_url": "https://finance-reporting-dev.example.com/saml/acs",
+      "audience": "https://finance-reporting-dev.example.com/saml/metadata",
+      "recipient": "https://finance-reporting-dev.example.com/saml/acs",
+      "destination": "https://finance-reporting-dev.example.com/saml/acs",
+      "subject_name_id_template": "${user.email}",
+      "subject_name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+      "status": "INACTIVE",
+      "response_signed": true,
+      "assertion_signed": true,
+      "signature_algorithm": "RSA_SHA256",
+      "digest_algorithm": "SHA256",
+      "honor_force_authn": false,
+      "attribute_statements": [
+        {
+          "name": "email",
+          "type": "EXPRESSION",
+          "values": [
+            "user.email"
+          ],
+          "filter_type": null,
+          "filter_value": null
+        },
+        {
+          "name": "firstName",
+          "type": "EXPRESSION",
+          "values": [
+            "user.firstName"
+          ],
+          "filter_type": null,
+          "filter_value": null
+        },
+        {
+          "name": "lastName",
+          "type": "EXPRESSION",
+          "values": [
+            "user.lastName"
+          ],
+          "filter_type": null,
+          "filter_value": null
+        },
+        {
+          "name": "department",
+          "type": "EXPRESSION",
+          "values": [
+            "user.department"
+          ],
+          "filter_type": null,
+          "filter_value": null
+        }
+      ],
+      "owner": "finance-platform",
+      "requested_by": "richard.barrett",
+      "environment": "dev",
+      "sal": "SAL2"
+    },
     "payroll-portal-dev": {
       "label": "Payroll Portal Development",
       "sso_url": "https://payroll-dev.example.com/saml/acs",
